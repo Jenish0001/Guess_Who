@@ -17,14 +17,13 @@ export default function OnePieceCharacters() {
         }
       `;
 
-      const response = await fetch("https://onepieceql.up.railway.app/graphql", {
+      const response = await fetch("/graphql", {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json",
   },
   body: JSON.stringify({ query }),
-  mode: "cors",
 });
 
 
