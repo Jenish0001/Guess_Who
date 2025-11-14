@@ -7,6 +7,7 @@ import LockInModal from "./components/LockInModal";
 import CharacterGrid from "./components/CharacterGrid";
 import ResultScreen from "./components/ResultScreen";
 import GameHeader from "./components/GameHeader";
+import OnePieceCharacter from "./hooks/useOnePieceCharacter";
 
 export default function App() {
   // global game state
