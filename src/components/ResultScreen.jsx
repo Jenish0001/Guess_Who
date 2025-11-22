@@ -1,7 +1,7 @@
-export default function ResultScreen(){
-    return(
+export default function ResultScreen() {
+    return (
         <>
-        <p>This is ResultScreen</p>
+            <p>This is ResultScreen</p>
         </>
     )
 }

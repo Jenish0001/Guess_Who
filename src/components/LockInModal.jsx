@@ -1,7 +1,7 @@
 export default function LockInModal() {
-    return(
+    return (
         <>
-        <p>This is LockInModal</p>
+            <p>This is LockInModal</p>
         </>
     )
 }
