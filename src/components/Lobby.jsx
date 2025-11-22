@@ -4,21 +4,25 @@ import { useState } from "react";
 import useOnePieceCharacter from "../hooks/useOnePieceCharacter";
 // import "./CharacterGrid.css"
 
-export default function Lobby({ setPhase, RoomCode }) {
+export default function Lobby({ setPhase, RoomCode, selected, setSelected, characters }) {
   const host = { name: "Jenish", wins: 5, games: 10 };
   const member = { name: "Dai", wins: 3, games: 8 };
 
-  const characters = useOnePieceCharacter();
-  const [selected, setSelected] = useState([]);
 
   const handleClick = (character) => {
-    if (selected.includes(character.id)) {
-      setSelected(selected.filter((id) => id !== character.id))
-    }
-    else {
-      setSelected([...selected, character.id]);
-    }
-  }
+
+    setSelected(prev => {
+      let updated;
+
+      if (prev.includes(character.id)) {
+        updated = prev.filter(id => id !== character.id);
+      } else {
+        updated = [...prev, character.id];
+      }
+      return updated;
+    });
+  };
+
 
 
   return (

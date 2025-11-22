@@ -7,13 +7,16 @@ import LockInModal from "./components/LockInModal";
 import CharacterGrid from "./components/CharacterGrid";
 import ResultScreen from "./components/ResultScreen";
 import GameHeader from "./components/GameHeader";
-import OnePieceCharacter from "./hooks/useOnePieceCharacter";
+import useOnePieceCharacter from "./hooks/useOnePieceCharacter";
 
 export default function App() {
+    const characters = useOnePieceCharacter();
+
   // global game state
   const [phase, setPhase] = useState("initial");
   const [RoomCode, setRoomCode] = useState(null);
   const [playerInfo, setPlayerInfo] = useState({ name: "", roomCode: "", isHost: false });
+  const [selected, setSelected] = useState([]);
   const [lockedCharacter, setLockedCharacter] = useState(null);
   const [opponentLocked, setOpponentLocked] = useState(null);
   const [gameResult, setGameResult] = useState(null);
@@ -27,17 +30,33 @@ export default function App() {
   return (
     <div className="app-container">
       {phase === "initial" && (
-        <GameHeader setRoomCode = {setRoomCode} setPhase={setPhase}
+        <GameHeader setRoomCode={setRoomCode} setPhase={setPhase}
         />
       )}
 
       {phase === "lobby" && (
         <Lobby
+          characters={characters}
+          selected={selected}
+          setSelected={setSelected}
           setPhase={setPhase}
           RoomCode={RoomCode}
           onJoin={(info) => {
             setPlayerInfo(info);
             goToLockIn();
+          }}
+        />
+      )}
+
+      {phase === "play" && (
+        <CharacterGrid
+          characters={characters}
+          selected={selected}
+          setSelected={setSelected}
+          lockedCharacter={lockedCharacter}
+          onFinish={(result) => {
+            setGameResult(result);
+            goToResult();
           }}
         />
       )}
@@ -49,16 +68,6 @@ export default function App() {
             goToPlay();
           }}
           onBack={goToLobby}
-        />
-      )}
-
-      {phase === "play" && (
-        <CharacterGrid
-          lockedCharacter={lockedCharacter}
-          onFinish={(result) => {
-            setGameResult(result);
-            goToResult();
-          }}
         />
       )}
 

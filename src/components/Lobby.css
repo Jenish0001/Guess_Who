@@ -112,6 +112,8 @@
   color: rgb(0, 0, 0);
   margin-top: 0.5rem;
   font-size: 0.9rem;
+  background-color: white;
+  height: auto;
 }
 
 .characterCard.selected {
