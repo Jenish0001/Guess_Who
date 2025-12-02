@@ -1,45 +1,52 @@
 import { useEffect, useState } from "react";
 
 export default function useOnePieceCharacter() {
+  const [characters, setCharacters] = useState([]);
 
-    const [characters, setCharacters] = useState([]);
+  useEffect(() => {
+    const fetchCharacters = async () => {
+      try {
+        const totalPages = 34;
 
-    useEffect(() => {
-        const fetchCharacters = async () => {
-            const allResults = [];
-            const totalPages = 34;
-
-            for (let page = 1; page <= totalPages; page++) {
-                const query = `
+        // Create an array of promises for all pages
+        const queries = Array.from({ length: totalPages }, (_, i) => {
+          const page = i + 1;
+          const query = `
             query {
-                characters(page: ${page}) {
+              characters(page: ${page}) {
                 results {
-                    id
-                    englishName
-                    avatarSrc
+                  id
+                  englishName
+                  avatarSrc
                 }
-                }
+              }
             }
-            `;
+          `;
+          return fetch("/graphql", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({ query }),
+          }).then((res) => res.json());
+        });
 
-                const response = await fetch("/graphql", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                    },
-                    body: JSON.stringify({ query }),
+        // Wait for ALL requests at once
+        const results = await Promise.all(queries);
 
-                });
+        const allCharacters = results.flatMap(
+          (r) => r.data?.characters?.results ?? []
+        );
 
-                const { data } = await response.json();
-                allResults.push(...data.characters.results);
-            }
+        setCharacters(allCharacters);
+      } catch (err) {
+        console.error("Error loading characters:", err);
+      }
+    };
 
-            setCharacters(allResults);
-        };
+    fetchCharacters();
+  }, []);
 
-        fetchCharacters();
-    }, [])
-    return characters;
-};
+  return characters;
+}

@@ -17,6 +17,7 @@ export default function App() {
   const [RoomCode, setRoomCode] = useState(null);
   const [playerInfo, setPlayerInfo] = useState({ name: "", roomCode: "", isHost: false });
   const [selected, setSelected] = useState([]);
+  const [chosenCharacters, setChosenCharacters] = useState([]);
   const [lockedCharacter, setLockedCharacter] = useState(null);
   const [opponentLocked, setOpponentLocked] = useState(null);
   const [gameResult, setGameResult] = useState(null);
@@ -54,6 +55,8 @@ export default function App() {
           selected={selected}
           setSelected={setSelected}
           lockedCharacter={lockedCharacter}
+          chosenCharacters={chosenCharacters}
+          setChosenCharacters={setChosenCharacters}
           onFinish={(result) => {
             setGameResult(result);
             goToResult();
