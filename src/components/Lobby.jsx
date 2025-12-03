@@ -58,7 +58,20 @@ export default function Lobby({ setPhase, RoomCode, selected, setSelected, chara
           <button className="back-btn" onClick={() => setPhase("initial")}>
             ← Back
           </button>
-          <button className="next-btn" onClick={() => setPhase("play")}>Start Game</button>
+          <button
+            className="next-btn"
+            // disabled={selected.length !== 18}
+            onClick={() => {
+              if (selected.length === 18) {
+                setPhase("play");
+              } else {
+                alert(`Bro… pick ${18 - selected.length} more characters.`);
+              }
+            }}
+          >
+            Start Game
+          </button>
+
         </div>
         <div className="charactersList">
           <h2>Choose Characters for the Game</h2>
@@ -71,7 +84,6 @@ export default function Lobby({ setPhase, RoomCode, selected, setSelected, chara
                 onClick={() => handleClick(character)}
               >
                 <img src={character.avatarSrc} alt={character.englishName} />
-                <p>{character.englishName}</p>
               </div>
             ))}
           </div>

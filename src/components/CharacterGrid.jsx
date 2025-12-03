@@ -12,6 +12,7 @@ export default function CharacterGrid({ selected, characters, chosenCharacters, 
       {chosenCharacters.map((char) => (
         <div key={char.id} className="character-card" >
           <img src={char.avatarSrc} alt={char.englishName} width={150} />
+          <h3>{char.englishName}</h3>
         </div>
       ))}
     </div>
