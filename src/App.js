@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import Lobby from "./components/Lobby";
 import LockInModal from "./components/LockInModal";
 import CharacterGrid from "./components/CharacterGrid";
@@ -9,14 +8,11 @@ import useOnePieceCharacter from "./hooks/useOnePieceCharacter";
 
 export default function App() {
   const characters = useOnePieceCharacter();
-
   const [phase, setPhase] = useState("initial");
   const [RoomCode, setRoomCode] = useState(null);
-
   const [selected, setSelected] = useState([]);            // 18 chosen by host
   const [chosenCharacters, setChosenCharacters] = useState([]); // filtered 18
   const [lockedCharacter, setLockedCharacter] = useState(null); // final pick
-
   // navigation
   const goToLobby = () => setPhase("lobby");
   const goToPlay = () => setPhase("play");

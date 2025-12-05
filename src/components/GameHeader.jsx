@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./GameHeader.css";
 export default function GameHeader({ setRoomCode, setPhase }) {
 
@@ -6,7 +5,6 @@ export default function GameHeader({ setRoomCode, setPhase }) {
     const code = Math.floor(100000 + Math.random() * 900000).toString();
     setRoomCode(code);
     setPhase("lobby");
-
   };
 
   const FindGame = () => {

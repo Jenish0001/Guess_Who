@@ -13,10 +13,10 @@ export default function Lobby({
       if (prev.includes(character.id)) {
         return prev.filter((id) => id !== character.id);
       }
-      if (prev.length >= 18) return prev; // limit
+      if (prev.length >= 18) return prev;
       return [...prev, character.id];
     });
-  };
+  };  
 
   return (
     <div className="lobby-container">
